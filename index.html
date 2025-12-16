@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Cards - Personajes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .lang-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .lang-btn {
+            padding: 10px 25px;
+            border: 2px solid #4ecdc4;
+            background: transparent;
+            color: #4ecdc4;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+
+        .lang-btn.active {
+            background: #4ecdc4;
+            color: #1a1a2e;
+        }
+
+        .lang-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #4ecdc4;
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.3);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 399px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+            color: #4ecdc4;
+        }
+
+        .card-type {
+            font-size: 0.9em;
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
+
+        .card-rarity {
+            font-size: 0.85em;
+            color: #ffd93d;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            border: 2px solid #4ecdc4;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #ff6b6b;
+            transition: transform 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(78, 205, 196, 0.3);
+        }
+
+        .modal-title {
+            font-size: 2.5em;
+            color: #4ecdc4;
+            margin-bottom: 10px;
+        }
+
+        .modal-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .meta-item {
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .modal-body {
+            line-height: 1.8;
+        }
+
+        .modal-section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            color: #ffd93d;
+            margin-bottom: 10px;
+            padding-left: 15px;
+            border-left: 4px solid #ffd93d;
+        }
+
+        .section-content {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎮 SERVER CARDS 🎮</h1>
+        <p>Oficial Wiki by AdriXT_</p>
+        <div class="lang-toggle">
+            <button class="lang-btn active" onclick="setLanguage('es')">Español</button>
+            <button class="lang-btn" onclick="setLanguage('en')">English</button>
+        </div>
+    </div>
+
+    <div class="cards-grid" id="cardsGrid"></div>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-meta" id="modalMeta"></div>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'es';
+
+        const cards = [
+            {
+                id: 'joker',
+                icon: '🃏',
+                image: 'Joker4.jpg',
+                es: {
+                    title: 'EL JOKER/LOCO',
+                    type: 'Rol neutral - Le vale verga',
+                    rarity: 'Única',
+                    persistence: 'Permanente',
+                    alignment: 'De quien le hable más bonito o le dé comer',
+                    description: 'El loco no pertenece a ningún bando. No busca ganar. No busca perder. Es algo que simplemente ocurre, sin paz ni negociación ni razonamiento. Cuando el Loco actúa el mundo no se rompe; se desafina.',
+                    passive: 'El puto Loco no está sujeto a las normas estándar del servidor. Sus acciones no pueden usarse como prueba directa en juicios o acusaciones formales. Puede interferir indirectamente en eventos clave sin declarar intención.',
+                    active: 'Cuando él quiera (pero en dosis razonables) el Loco puede:\n• Alterar eventos\n• Introducir confusión narrativa y de gameplay\n• Provocar sucesos y acontecimientos que no se pueden explicar con lógica\n\nEl efecto no se anuncia, solo se puede apechugar.',
+                    note: 'Se dice que el Loco oye una canción que nadie más percibe. A veces un arpa o laúd antiguo que toca una etérea melodía. A veces un sonido electrónico y zumbidos mecánicos. Quienes lo han observado por mucho, aseguran que no improvisa… Solo interpreta la partitura de la misteriosa música que escucha.'
+                },
+                en: {
+                    title: 'THE JOKER/FOOL',
+                    type: 'Neutral Role – Doesn\'t give a damn',
+                    rarity: 'Unique',
+                    persistence: 'Permanent',
+                    alignment: 'Whoever talks to him nicely… or feeds him',
+                    description: 'The Fool belongs to no faction. He does not seek to win. He does not seek to lose. He is something that simply happens, without peace, negotiation, or reason. When the Fool acts, the world does not break; it goes out of tune.',
+                    passive: 'The damn Fool is not subject to the server\'s standard rules. His actions cannot be used as direct evidence in trials or formal accusations. He may indirectly interfere in key events without declaring intent.',
+                    active: 'Whenever he wants (but in reasonable doses), the Fool can:\n• Alter events\n• Introduce narrative and gameplay confusion\n• Trigger happenings that cannot be explained through logic\n\nThe effect is never announced — it can only be endured.',
+                    note: 'It is said that the Fool hears a song no one else can perceive. Sometimes an ancient harp or lute playing an ethereal melody. Sometimes electronic sounds and mechanical buzzing. Those who have watched him for long enough swear that he does not improvise… He merely interprets the score of the mysterious music he hears.'
+                }
+            },
+            {
+                id: 'ritualist',
+                icon: '🔮',
+                image: 'RitualistaDelVelo.png',
+                es: {
+                    title: 'EL RITUALISTA DEL VELO',
+                    type: 'Rol de bando — Fantasía',
+                    rarity: 'Única, derivada de hechicero',
+                    persistence: 'Permanente',
+                    alignment: 'Beligerante / Interesado',
+                    description: 'No maldice a las personas: les cobra deudas que aún no saben que tienen. El Ritualista opera en los márgenes del mundo, allí donde los nombres verdaderos importan, la sangre recuerda y los objetos conservan la voluntad de quienes los empuñaron. Su magia no es impulsiva ni caótica; es antigua, precisa y paciente.',
+                    passive: 'El Ritualista puede realizar rituales oscuros exclusivos, inaccesibles para otros roles. Su conocimiento no proviene de libros comunes, sino de memorias grabadas en sangre y esencia. Es capaz de manipular energía vital, reliquias antiguas y restos olvidados, extrayendo de ellos fragmentos de intención, culpa o deseo. Cuanto más personal es el objeto ofrecido, más profundo, peligroso y fuerte se vuelve el ritual.',
+                    active: 'Con la preparación adecuada, el Ritualista del Velo puede alterar el curso de otros: maldecir a un individuo, debilitarlo, marcarlo o torcer su destino de formas que no siempre son inmediatas. Hace uso de la magia así como invocar entidades de naturaleza oscura. Todo ritual exige un precio: objetos que hayan pertenecido al objetivo, materiales raros obtenidos mediante riesgo real y un pago acordado.',
+                    note: 'Vezhra\'el no actúa por odio ni por lealtad. Tampoco por compasión. Actúa porque recuerda lo que fue y porque sabe que todo poder verdadero exige un precio. Hay quienes luchan con acero y quienes lo hacen con pactos. Ambos dejan consecuencias. Pero solo uno se queda cuando la batalla termina… y viene a cobrar.'
+                },
+                en: {
+                    title: 'THE VEIL RITUALIST',
+                    type: 'Faction Role — Fantasy',
+                    rarity: 'Unique, derived from Sorcerer',
+                    persistence: 'Permanent',
+                    alignment: 'Belligerent / Self-Interested',
+                    description: 'He does not curse people: he collects debts they do not yet know they owe. The Ritualist operates at the fringes of the world, where true names carry weight, blood remembers, and objects retain the will of those who once wielded them. His magic is neither impulsive nor chaotic; it is ancient, precise, and patient.',
+                    passive: 'The Ritualist can perform exclusive dark rituals inaccessible to other roles. His knowledge does not come from common books, but from memories etched in blood and essence. He is capable of manipulating life energy, ancient relics, and forgotten remains. The more personal the object offered, the deeper, more dangerous, and more powerful the ritual becomes.',
+                    active: 'With proper preparation, the Veil Ritualist can alter the course of others: cursing an individual, weakening them, marking them, or twisting their fate in ways that are not always immediate. He employs magic as well as the summoning of entities of a dark nature. Every ritual demands a price: objects that once belonged to the target, rare materials obtained through real risk, and an agreed payment.',
+                    note: 'The Ritualist does not act out of hatred or loyalty. Nor out of compassion. He acts because he remembers what he once was, and because he knows that all true power demands a price. There are those who fight with steel, and those who fight with pacts. Both leave consequences. But only one remains when the battle ends… and comes to collect.'
+                }
+            },
+            {
+                id: 'merchant',
+                icon: '💰',
+                image: 'MercaderNegro.png',
+                es: {
+                    title: 'EL MERCADER NEGRO',
+                    type: 'Rol de bando (elección personal)',
+                    rarity: 'Única',
+                    persistence: 'Permanente',
+                    alignment: 'Interés propio / Manipulación',
+                    description: 'Comercia con lo que otros fingen que no existe. El mercader negro opera en los límites oscuros del mercado negro. Donde no llegan las normas, donde la legalidad se vuelve difusa y el precio deja de medirse solo en monedas… No vende ni comida ni herramientas comunes. Vende accesos, atajos, prohibiciones y adicciones, y cosas que no deberían cambiar de manos.',
+                    passive: 'Puede comerciar con objetos de dudosa legalidad y moralidad. Puede alterar indirectamente los precios del mercado mediante escasez, superávit, acaparamiento o información selectiva. Tiene acceso a tratos que no pueden hacerse públicamente… Mientras exista ese tipo de necesidades… ahí estará su negocio.',
+                    active: 'Puede conceder préstamos con condiciones tanto narrativas como de gameplay. Exigir garantías (mascotas, objetos personales, favores futuros, cláusulas ambiguas). Si un trato se incumple: puede recurrir al ritualista con tu objeto de valor. Puede solicitar mediación o ejecución parcial al árbitro. Sus consecuencias no siempre serán inmediatas.',
+                    note: 'El mercader negro nunca fuerza un trato, siempre ofrece una salida, el problema es que, cuando miras atrás, descubres que ya habías aceptado.'
+                },
+                en: {
+                    title: 'THE BLACK MERCHANT',
+                    type: 'Faction Role — (Personal Choice)',
+                    rarity: 'Unique',
+                    persistence: 'Permanent',
+                    alignment: 'Self-Interest / Manipulation',
+                    description: 'He trades in what others pretend does not exist. The Black Merchant operates on the shadowed edges of the black market—where rules do not reach, where legality blurs, and where price is no longer measured solely in coin… He does not sell food or common tools. He sells access, shortcuts, prohibitions, addictions, and things that should never change hands.',
+                    passive: 'He may trade in items of questionable legality and morality. He can indirectly alter market prices through scarcity, surplus, hoarding, or selective information. He has access to deals that cannot be made publicly… As long as such needs exist, his business will be there.',
+                    active: 'May grant loans with conditions that are both narrative-driven and gameplay-based. Demand collateral (pets, personal items, future favors, ambiguous clauses). If a deal is broken, he may turn to the Ritualist using your item of value. He may request mediation or partial enforcement from the arbiter. The consequences are not always immediate.',
+                    note: 'The Black Merchant never forces a deal; he always offers a way out. The problem is that, when you look back, you realize you had already agreed.'
+                }
+            },
+            {
+                id: 'archaeologist',
+                icon: '🦖',
+                image: 'ELArqueologo.png',
+                es: {
+                    title: 'EL ARQUEÓLOGO',
+                    type: 'Ciencia ficción',
+                    rarity: 'Única (solo 1)',
+                    persistence: 'Permanente (no rotativa)',
+                    alignment: 'Conocimiento',
+                    description: 'No busca el pasado, solo escucha lo que aún no ha terminado de decir. El arqueólogo no conquista ni defiende, excava. Mientras que los otros de su bando miran mucho hacia el futuro, él hurga con cuidado en el pasado, porque sabe que todo progreso deja huellas. Su labor es dar sentido a las reliquias y restos que encuentra.',
+                    passive: 'El arqueólogo puede identificar ruinas, vestigios y lenguajes de eras pasadas. Tiene acceso exclusivo a la interpretación histórica (el lore) de ciertos objetos, estructuras y entidades. Sus registros no siempre están completos, pero nunca son falsos.',
+                    active: 'El arqueólogo entiende de bestias prehistóricas; buscará domar y usar a su favor todas las criaturas con temática dinosauril. Reconstruir la línea temporal del servidor desbloqueará ventajas para su bando. Reactivar conocimientos olvidados.',
+                    note: 'El arqueólogo muchas veces se siente más allegado a las impresionantes bestias del pasado, quizá porque ellas recuerdan un mundo antes de que la ciencia y la magia decidieran separarse.'
+                },
+                en: {
+                    title: 'THE ARCHAEOLOGIST',
+                    type: 'Science Fiction',
+                    rarity: 'Unique (only 1)',
+                    persistence: 'Permanent (non-rotating)',
+                    alignment: 'Knowledge',
+                    description: 'He does not seek the past, he listens to what has not yet finished speaking. The archaeologist does not conquer nor defend; he excavates. While others on his side look far into the future, he carefully digs into the past, because he knows that all progress leaves traces. His task is to give meaning to the relics and remains he uncovers.',
+                    passive: 'The archaeologist can identify ruins, remnants, and languages from past eras. He has exclusive access to the historical interpretation (lore) of certain objects, structures, and entities. His records are not always complete, but they are never false.',
+                    active: 'The archaeologist understands prehistoric beasts; he will seek to tame and use all dinosaur-themed creatures to his advantage. Reconstructing the server\'s timeline will unlock advantages for his faction. Reactivate forgotten knowledge.',
+                    note: 'The archaeologist often feels closer to the impressive beasts of the past, perhaps because they remember a world before science and magic chose to part ways.'
+                }
+            },
+            {
+                id: 'oldman',
+                icon: '👴',
+                image: 'Ancianito.png',
+                es: {
+                    title: 'EL ANCIANITO',
+                    type: 'Rol Único — Fantasía, Antiguamente Útil',
+                    rarity: 'Única',
+                    persistence: 'Permanente',
+                    alignment: 'Sabiduría Inútil / Comedia Trágica',
+                    description: 'Sabe dónde está todo… pero ya no puede con nada. Hubo un tiempo en que fue minero. En sus años mozos, el Ancianito tocó algo que no debía: un fragmento del Núcleo del Overworld, una reliquia que conecta todas las capas del mundo. No explotó. No ascendió. Envejeció mal. Desde entonces, ve el mundo tal como es por dentro, pero sus manos ya no obedecen y sus huesos protestan por existir.',
+                    passive: 'El Ancianito sabe perfectamente dónde están: minerales valiosos, cofres ocultos, spawners, estructuras antiguas. Pero saber no es lo mismo que poder. Le gusta bañarse en aguas calentitas con señoras mayores; tiene una sorprendente tolerancia al fuego y la lava. Tiene callos hasta en las orejas y aguanta bien los golpes superficiales. Pica muy rápido, aunque…',
+                    active: 'LIMITACIÓN - Cuando el Ancianito pica, los bloques de minerales NO sueltan objetos. Puede romperlos, sí. Aprovecharlos… no.\n\nDEBILIDAD - Tiene 3 corazones máximos. Cualquier caída mal calculada es una sentencia. El combate directo es una idea pésima.\n\nMALDICIÓN - Bajo el agua, sus pulmones negros se vacían con velocidad alarmante. Nunca le enseñaron a nadar y fumaba como una carretilla.',
+                    note: 'Es un detector ambulante de riqueza. Una biblioteca viviente de "dónde". Un estorbo absoluto para el "cómo". Todos lo quieren cerca. Nadie quiere que actúe. Un recordatorio de que la flor de la vida pasa y de que, en algún momento, todos seremos una ramita seca.'
+                },
+                en: {
+                    title: 'THE LITTLE OLD MAN',
+                    type: 'Unique Role — Fantasy, Formerly Useful',
+                    rarity: 'Unique',
+                    persistence: 'Permanent',
+                    alignment: 'Useless Wisdom / Tragic Comedy',
+                    description: 'He knows where everything is… but he can\'t do anything about it anymore. There was a time when he was a miner. In his younger years, the Little Old Man touched something he should not have: a fragment of the Overworld Core, a relic that connects all layers of the world. He did not explode. He did not ascend. He aged badly. Since then, he sees the world as it truly is on the inside, but his hands no longer obey, and his bones protest at the mere act of existing.',
+                    passive: 'The Little Old Man knows exactly where valuable minerals, hidden chests, spawners, and ancient structures are located. But knowing is not the same as being able. He greatly enjoys bathing in warm waters with older ladies; he has a surprising tolerance for fire and lava. He has calluses everywhere and can withstand superficial blows. He mines very fast, although…',
+                    active: 'LIMITATION - When the Little Old Man mines, mineral blocks do NOT drop items. He can break them, yes. Make use of them… no.\n\nWEAKNESS - Maximum of 3 hearts. Any miscalculated fall is a death sentence. Direct combat is a terrible idea.\n\nCURSE - Underwater, his blackened lungs empty at an alarming speed. He was never taught to swim and smoked like a chimney.',
+                    note: 'He is a walking detector of wealth. A living library of "where." An absolute hindrance to "how." Everyone wants him nearby. No one wants him to act. A reminder that the bloom of life fades, and that someday we will all become dry little twigs.'
+                }
+            }
+        ];
+
+        function renderCards() {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '';
+            
+            cards.forEach(card => {
+                const data = card[currentLang];
+                const cardEl = document.createElement('div');
+                cardEl.className = 'card';
+                cardEl.onclick = () => openModal(card);
+                
+                cardEl.innerHTML = `
+                    <div class="card-image" style="${card.image ? `background-image: url(${card.image})` : ''}">${card.image ? '' : card.icon}</div>
+                    <h3 class="card-title">${data.title}</h3>
+                    <p class="card-type">${data.type}</p>
+                    <p class="card-rarity">⭐ ${data.rarity}</p>
+                `;
+                
+                grid.appendChild(cardEl);
+            });
+        }
+
+        function openModal(card) {
+            const data = card[currentLang];
+            document.getElementById('modalTitle').textContent = data.title;
+            
+            const meta = document.getElementById('modalMeta');
+            meta.innerHTML = `
+                <div class="meta-item">📌 ${data.type}</div>
+                <div class="meta-item">⭐ ${data.rarity}</div>
+                <div class="meta-item">🔄 ${data.persistence}</div>
+                <div class="meta-item">⚔️ ${data.alignment}</div>
+            `;
+            
+            const body = document.getElementById('modalBody');
+            body.innerHTML = `
+                <div class="modal-section">
+                    <h3 class="section-title">${currentLang === 'es' ? 'Descripción' : 'Description'}</h3>
+                    <div class="section-content">${data.description}</div>
+                </div>
+                <div class="modal-section">
+                    <h3 class="section-title">${currentLang === 'es' ? 'Efecto Pasivo' : 'Passive Effect'}</h3>
+                    <div class="section-content">${data.passive}</div>
+                </div>
+                <div class="modal-section">
+                    <h3 class="section-title">${currentLang === 'es' ? 'Efecto Activo' : 'Active Effect'}</h3>
+                    <div class="section-content">${data.active}</div>
+                </div>
+                <div class="modal-section">
+                    <h3 class="section-title">${currentLang === 'es' ? 'Nota Narrativa' : 'Narrative Note'} 📕</h3>
+                    <div class="section-content">${data.note}</div>
+                </div>
+            `;
+            
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderCards();
+        }
+
+        document.getElementById('modal').onclick = (e) => {
+            if (e.target.id === 'modal') closeModal();
+        };
+
+        renderCards();
+    </script>
+</body>
+</html>

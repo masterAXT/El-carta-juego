@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,20 +17,20 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #fff;
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 30px 20px;
+            margin-bottom: 30px;
+            padding: 20px 15px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             backdrop-filter: blur(10px);
         }
 
         .header h1 {
-            font-size: 3em;
+            font-size: clamp(1.8em, 5vw, 3em);
             margin-bottom: 10px;
             background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
             -webkit-background-clip: text;
@@ -37,22 +38,48 @@
             background-clip: text;
         }
 
+        .header p {
+            font-size: clamp(0.9em, 2.5vw, 1.1em);
+        }
+
+        .controls {
+            max-width: 1400px;
+            margin: 0 auto 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
         .lang-toggle {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-top: 20px;
+            flex-wrap: wrap;
         }
 
-        .lang-btn {
-            padding: 10px 25px;
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .lang-btn,
+        .filter-btn {
+            padding: 10px 20px;
             border: 2px solid #4ecdc4;
             background: transparent;
             color: #4ecdc4;
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 1em;
+            font-size: clamp(0.85em, 2vw, 1em);
+            white-space: nowrap;
+        }
+
+        .filter-btn {
+            border-color: #ff6b6b;
+            color: #ff6b6b;
         }
 
         .lang-btn.active {
@@ -60,7 +87,13 @@
             color: #1a1a2e;
         }
 
-        .lang-btn:hover {
+        .filter-btn.active {
+            background: #ff6b6b;
+            color: #1a1a2e;
+        }
+
+        .lang-btn:hover,
+        .filter-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
         }
@@ -68,9 +101,16 @@
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
+            gap: 20px;
             max-width: 1400px;
             margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
         }
 
         .card {
@@ -119,20 +159,26 @@
             background-position: center;
         }
 
+        @media (max-width: 768px) {
+            .card-image {
+                height: 250px;
+            }
+        }
+
         .card-title {
-            font-size: 1.5em;
+            font-size: clamp(1.2em, 3vw, 1.5em);
             margin-bottom: 8px;
             color: #4ecdc4;
         }
 
         .card-type {
-            font-size: 0.9em;
+            font-size: clamp(0.8em, 2vw, 0.9em);
             color: #ff6b6b;
             margin-bottom: 5px;
         }
 
         .card-rarity {
-            font-size: 0.85em;
+            font-size: clamp(0.75em, 2vw, 0.85em);
             color: #ffd93d;
         }
 
@@ -146,7 +192,7 @@
             background: rgba(0, 0, 0, 0.85);
             z-index: 1000;
             overflow-y: auto;
-            padding: 20px;
+            padding: 15px;
         }
 
         .modal.active {
@@ -160,21 +206,29 @@
             border-radius: 20px;
             max-width: 800px;
             width: 100%;
-            padding: 40px;
+            padding: 30px 20px;
             position: relative;
             border: 2px solid #4ecdc4;
             max-height: 90vh;
             overflow-y: auto;
         }
 
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 25px 15px;
+                margin: 10px;
+            }
+        }
+
         .close-btn {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2em;
+            top: 15px;
+            right: 15px;
+            font-size: 1.8em;
             cursor: pointer;
             color: #ff6b6b;
             transition: transform 0.3s;
+            z-index: 10;
         }
 
         .close-btn:hover {
@@ -182,29 +236,30 @@
         }
 
         .modal-header {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             padding-bottom: 20px;
             border-bottom: 2px solid rgba(78, 205, 196, 0.3);
         }
 
         .modal-title {
-            font-size: 2.5em;
+            font-size: clamp(1.5em, 4vw, 2.5em);
             color: #4ecdc4;
             margin-bottom: 10px;
+            padding-right: 30px;
         }
 
         .modal-meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
             margin-top: 15px;
         }
 
         .meta-item {
-            padding: 8px 15px;
+            padding: 8px 12px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            font-size: 0.9em;
+            font-size: clamp(0.75em, 2vw, 0.9em);
         }
 
         .modal-body {
@@ -212,11 +267,11 @@
         }
 
         .modal-section {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .section-title {
-            font-size: 1.3em;
+            font-size: clamp(1.1em, 2.5vw, 1.3em);
             color: #ffd93d;
             margin-bottom: 10px;
             padding-left: 15px;
@@ -228,16 +283,35 @@
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             white-space: pre-wrap;
+            font-size: clamp(0.9em, 2vw, 1em);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #4ecdc4;
+            font-size: clamp(1.1em, 3vw, 1.3em);
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <h1>🎮 SERVER CARDS 🎮</h1>
         <p>Oficial Wiki by AdriXT_</p>
+    </div>
+
+    <div class="controls">
         <div class="lang-toggle">
             <button class="lang-btn active" onclick="setLanguage('es')">Español</button>
             <button class="lang-btn" onclick="setLanguage('en')">English</button>
+        </div>
+
+        <div class="filter-buttons" id="filterButtons">
+            <button class="filter-btn active" onclick="setFilter('all')" data-filter="all"></button>
+            <button class="filter-btn" onclick="setFilter('fantasy')" data-filter="fantasy"></button>
+            <button class="filter-btn" onclick="setFilter('scifi')" data-filter="scifi"></button>
+            <button class="filter-btn" onclick="setFilter('neutral')" data-filter="neutral"></button>
         </div>
     </div>
 
@@ -256,16 +330,39 @@
 
     <script>
         let currentLang = 'es';
+        let currentFilter = 'all';
+
+        const translations = {
+            es: {
+                filters: {
+                    all: '📚 Todas',
+                    fantasy: '🔮 Fantasía',
+                    scifi: '🚀 Ciencia Ficción',
+                    neutral: '⚖️ Neutral'
+                },
+                noResults: 'No hay cartas en esta categoría'
+            },
+            en: {
+                filters: {
+                    all: '📚 All',
+                    fantasy: '🔮 Fantasy',
+                    scifi: '🚀 Science Fiction',
+                    neutral: '⚖️ Neutral'
+                },
+                noResults: 'No cards in this category'
+            }
+        };
 
         const cards = [
             {
                 id: 'joker',
                 icon: '🃏',
                 image: 'Joker4.jpg',
+                faction: 'neutral',
                 es: {
                     title: 'EL JOKER/LOCO',
-                    type: 'Rol de bando - Neutral (Le vale verga)',
-                    rarity: 'Única',
+                    type: 'Rol de bando - Neutral',
+                    rarity: 'Comodin Especial - Única',
                     persistence: 'Permanente',
                     alignment: 'De quien le hable más bonito o le dé comer',
                     description: 'El loco no pertenece a ningún bando. No busca ganar. No busca perder. Es algo que simplemente ocurre, sin paz ni negociación ni razonamiento. Cuando el Loco actúa el mundo no se rompe; se desafina.',
@@ -275,8 +372,8 @@
                 },
                 en: {
                     title: 'THE JOKER/FOOL',
-                    type: 'Faction Role - Neutral (Doesn\'t give a damn)',
-                    rarity: 'Unique',
+                    type: 'Faction Role - Neutral',
+                    rarity: 'Special Wildcard - Unique',
                     persistence: 'Permanent',
                     alignment: 'Whoever talks to him nicely… or feeds him',
                     description: 'The Fool belongs to no faction. He does not seek to win. He does not seek to lose. He is something that simply happens, without peace, negotiation, or reason. When the Fool acts, the world does not break; it goes out of tune.',
@@ -289,6 +386,7 @@
                 id: 'ritualist',
                 icon: '🔮',
                 image: 'RitualistaDelVelo.png',
+                faction: 'fantasy',
                 es: {
                     title: 'EL RITUALISTA DEL VELO',
                     type: 'Rol de bando - Fantasía',
@@ -316,6 +414,7 @@
                 id: 'merchant',
                 icon: '💰',
                 image: 'MercaderNegro.png',
+                faction: 'fantasy',
                 es: {
                     title: 'EL MERCADER NEGRO',
                     type: 'Rol de bando - Fantasía',
@@ -343,6 +442,7 @@
                 id: 'archaeologist',
                 icon: '🦖',
                 image: 'ELArqueologo.png',
+                faction: 'scifi',
                 es: {
                     title: 'EL ARQUEÓLOGO',
                     type: 'Rol de bando - Ciencia ficción',
@@ -370,6 +470,7 @@
                 id: 'oldman',
                 icon: '👴',
                 image: 'Ancianito.png',
+                faction: 'fantasy',
                 es: {
                     title: 'EL ANCIANITO',
                     type: 'Rol de bando - Fantasía',
@@ -397,6 +498,7 @@
                 id: 'theglitch',
                 icon: '🏁',
                 image: 'ElGlitch.jpeg',
+                faction: 'scifi',
                 es: {
                     title: 'EL GLITCH',
                     type: 'Rol de bando - Ciencia ficción',
@@ -420,10 +522,68 @@
                     note: 'Some engineers claim it is not a bug, but a poorly documented feature. Others insist the machine learned that only at the edge of collapse is it allowed to be more than a tool. Some will see it as a defective weapon, others as an uncontrollable risk.'
                 },
             },
+            {
+                id: 'judge_of_the_cycle',
+                icon: '⚖️',
+                image: 'ElJuezDelCiclo.jpeg',
+                faction: 'scifi',
+                es: {
+                    title: 'EL JUEZ DEL CICLO',
+                    type: 'Rol de Bando - Ciencia Ficción',
+                    rarity: 'Única',
+                    persistence: 'Permanente',
+                    alignment: 'Orden / Interpretación',
+                    description: 'El Juez no representa la justicia absoluta ni la moral universal. Representa el sistema. En un mundo donde la magia y la tecnología disputan el significado de la verdad, actúa como intérprete del contrato social: observa actos, escucha versiones, analiza precedentes y decide qué encaja… y qué debe ser corregido. Es respetado, cuestionado y temido. No gobierna solo, pero sin él, el orden se fragmenta. Su autoridad no es divina: depende del reconocimiento social y de la memoria de sus sentencias.',
+                    passive: 'Posee un valor narrativo y social llamado Dharma Judicial, que refleja su deber, prestigio y legitimidad percibida. Un Dharma positivo refuerza su autoridad; uno negativo la debilita. El Dharma lo determina la reacción del mundo a sus fallos. Además, registra actos y precedentes de cada individuo, generando Karma Judicial. A mayor Karma negativo de un individuo, el Juez inflige más daño contra él y recibe menos daño de sus ataques. El Karma es memoria convertida en consecuencia.',
+                    active: 'Puede abrir juicios públicos, proponer sentencias que se votan junto al Senado e interpretar la ley mediante decretos temporales. Su voto tiene mayor peso que el estándar y el Senado actúa como contrapeso. Cuando un individuo alcanza el máximo Karma Judicial negativo, puede dictar Sentencia de Exilio: la carta del acusado queda inactiva, pierde influencia legal y sufre retribución extrema frente al Juez. El Exilio no es muerte: es desaparición del significado. El Árbitro puede revisar esta sentencia.',
+                    note: 'Dicen que el Juez no castiga: deja que el mundo recuerde. Cada fallo deja una huella y cada precedente inclina el ciclo.'
+                },
+                en: {
+                    title: 'THE JUDGE OF THE CYCLE',
+                    type: 'Faction Role - Science Fiction',
+                    rarity: 'Unique',
+                    persistence: 'Permanent',
+                    alignment: 'Order / Interpretation',
+                    description: 'The Judge does not represent absolute justice nor universal morality. He represents the system. In a world where magic and technology compete over truth, he interprets the social contract: observing actions, hearing testimonies, analyzing precedents, and deciding what fits—and what must be corrected. Respected, questioned, and feared, he does not rule alone, but without him order fragments. His authority is not divine; it depends on social recognition and the memory of his rulings.',
+                    passive: 'He possesses a narrative and social value known as Judicial Dharma, reflecting duty, prestige, and perceived legitimacy. Positive Dharma strengthens his authority; negative Dharma weakens it. Dharma is determined by the world’s reaction to his rulings. He also records actions and precedents, generating Judicial Karma. The higher an individual’s negative Karma, the more damage the Judge deals to them and the less he receives from their attacks. Karma is memory turned into consequence.',
+                    active: 'He may open public trials, propose sentences voted alongside the Senate, and interpret the law through temporary decrees. His vote carries greater weight, with the Senate as counterbalance. When an individual reaches maximum negative Judicial Karma, he may issue a Sentence of Exile: the accused’s card becomes inactive, loses legal influence, and suffers extreme retribution when facing the Judge. Exile is not death—it is the disappearance of meaning. The Arbiter may review this sentence.',
+                    note: 'They say the Judge does not punish; he allows the world to remember. Every ruling leaves a mark and every precedent tilts the cycle.'
+                }
+            },
+            {
+                id: 'the_arbiter',
+                icon: '👁️',
+                image: 'ElArbitro.jpeg',
+                faction: 'neutral',
+                es: {
+                    title: 'EL ÁRBITRO',
+                    type: 'Rol de Bando - Neutral',
+                    rarity: 'Comodín - Única',
+                    persistence: 'Permanente',
+                    alignment: 'Equilibrio / Observador',
+                    description: 'El Árbitro no pertenece a ningún bando ni responde a intereses internos. No compite, no conspira, no gobierna: observa. Conoce el origen del sistema, la intención de las reglas y el sentido de la historia. Interviene solo cuando el equilibrio se rompe o la narrativa amenaza con destruirse.',
+                    passive: 'Su mera existencia disuade excesos: ningún poder es absoluto y ninguna carta está por encima del sistema. Las decisiones extremas saben que serán observadas. Además, conoce el propósito de cada carta, la intención de cada mecánica y el equilibrio narrativo, pudiendo interpretar las reglas por su espíritu.',
+                    active: 'Puede ajustar, corregir o anular decisiones que rompan el equilibrio, revisar sentencias y castigos extremos, e introducir cambios excepcionales para preservar la experiencia colectiva. Cuando un sistema entra en bucle o abuso, puede reiniciar dinámicas, redistribuir consecuencias o redefinir límites temporales.',
+                    note: 'El Árbitro no aparece en las historias. Cuando todo funciona, nadie lo nombra. Cuando algo se rompe, todos lo sienten.'
+                },
+                en: {
+                    title: 'THE ARBITER',
+                    type: 'Faction Role - Neutral',
+                    rarity: 'Wildcard - Unique',
+                    persistence: 'Permanent',
+                    alignment: 'Balance / Observer',
+                    description: 'The Arbiter belongs to no faction and serves no internal interest. He does not compete, conspire, or rule—he observes. He knows the origin of the system, the intent behind the rules, and the meaning of the story, intervening only when balance breaks or the narrative risks destroying itself.',
+                    passive: 'His mere existence deters excess: no power is absolute and no card stands above the system. Extreme decisions know they are being watched. He also knows the purpose of every card, the intent of every mechanic, and the narrative balance, interpreting rules by their spirit.',
+                    active: 'He may adjust, correct, or nullify decisions that break balance, review sentences and extreme punishments, and introduce exceptional changes to preserve the collective experience. When a system enters a loop or abuse, he may reset dynamics, redistribute consequences, or redefine temporary limits.',
+                    note: 'The Arbiter does not appear in stories. When everything works, no one names him. When something breaks, everyone feels it.'
+                }
+            },
+
             // {
             //     id: 'theglitch',
             //     icon: '🏁',
             //     image: 'ElGlitch.jpeg',
+            //     faction: 'neutral',
             //     es: {
             //         title: 'EL GLITCH',
             //         type: 'Rol de bando - Ciencia ficción',
@@ -458,25 +618,44 @@
                     title: 'Comming soon',
                 }
             }
+
         ];
+        function getFilteredCards() {
+            if (currentFilter === 'all') return cards;
+            return cards.filter(card => card.faction === currentFilter);
+        }
+
+        function updateFilterButtons() {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                const filter = btn.getAttribute('data-filter');
+                btn.textContent = translations[currentLang].filters[filter];
+            });
+        }
 
         function renderCards() {
             const grid = document.getElementById('cardsGrid');
+            const filteredCards = getFilteredCards();
             grid.innerHTML = '';
-            
-            cards.forEach(card => {
+
+            if (filteredCards.length === 0) {
+                grid.innerHTML = `<div class="no-results">${translations[currentLang].noResults}</div>`;
+                return;
+            }
+
+            filteredCards.forEach(card => {
                 const data = card[currentLang];
                 const cardEl = document.createElement('div');
                 cardEl.className = 'card';
                 cardEl.onclick = () => openModal(card);
-                
+
                 cardEl.innerHTML = `
                     <div class="card-image" style="${card.image ? `background-image: url(${card.image})` : ''}">${card.image ? '' : card.icon}</div>
                     <h3 class="card-title">${data.title}</h3>
                     <p class="card-type">${data.type}</p>
                     <p class="card-rarity">⭐ ${data.rarity}</p>
                 `;
-                
+
                 grid.appendChild(cardEl);
             });
         }
@@ -484,7 +663,7 @@
         function openModal(card) {
             const data = card[currentLang];
             document.getElementById('modalTitle').textContent = data.title;
-            
+
             const meta = document.getElementById('modalMeta');
             meta.innerHTML = `
                 <div class="meta-item">📌 ${data.type}</div>
@@ -492,7 +671,7 @@
                 <div class="meta-item">🔄 ${data.persistence}</div>
                 <div class="meta-item">⚔️ ${data.alignment}</div>
             `;
-            
+
             const body = document.getElementById('modalBody');
             body.innerHTML = `
                 <div class="modal-section">
@@ -512,17 +691,29 @@
                     <div class="section-content">${data.note}</div>
                 </div>
             `;
-            
+
             document.getElementById('modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             document.getElementById('modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
 
         function setLanguage(lang) {
             currentLang = lang;
             document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            updateFilterButtons();
+            renderCards();
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             event.target.classList.add('active');
@@ -533,7 +724,9 @@
             if (e.target.id === 'modal') closeModal();
         };
 
+        updateFilterButtons();
         renderCards();
     </script>
 </body>
+
 </html>

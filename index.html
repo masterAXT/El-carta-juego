@@ -360,7 +360,7 @@
                 image: 'Joker4.jpeg',
                 faction: 'neutral',
                 es: {
-                    title: 'EL JOKER/LOCO',
+                    title: 'EL LOCO',
                     type: 'Rol de bando - Neutral',
                     rarity: 'Comodin Especial - Única',
                     persistence: 'Permanente',
@@ -371,7 +371,7 @@
                     note: 'Se dice que el Loco oye una canción que nadie más percibe. A veces un arpa o laúd antiguo que toca una etérea melodía. A veces un sonido electrónico y zumbidos mecánicos. Quienes lo han observado por mucho, aseguran que no improvisa… Solo interpreta la partitura de la misteriosa música que escucha.'
                 },
                 en: {
-                    title: 'THE JOKER/FOOL',
+                    title: 'THE FOOL',
                     type: 'Faction Role - Neutral',
                     rarity: 'Special Wildcard - Unique',
                     persistence: 'Permanent',
@@ -614,7 +614,7 @@
                 es: {
                     title: 'EL MAGO DE AGUA',
                     type: 'Rol de Bando - Fantasía',
-                    rarity: 'Alta',
+                    rarity: 'Única',
                     persistence: 'Permanente',
                     alignment: 'Hechicero elemental',
                     description: 'El Mago de Agua no domina el agua: la interpreta. Su magia no nace de la fuerza bruta ni del estudio rígido, sino de la visualización absoluta de su entorno. Para él, el mundo no es un escenario, sino un flujo constante de mareas, ciclos lunares y climas cambiantes. Donde otros ven lluvia, él ve oportunidad; donde otros ven sequía, él siente silencio. Su poder nunca es estable. Fluctúa con la luna, se agita con la tormenta y se debilita cuando el mundo le es hostil. Derrotar a un mago de agua no es cuestión de fuerza, sino de elegir bien el lugar y el momento.',
@@ -625,7 +625,7 @@
                 en: {
                     title: 'THE WATER MAGICIAN',
                     type: 'Faction Role - Fantasy',
-                    rarity: 'High',
+                    rarity: 'Unique',
                     persistence: 'Permanent',
                     alignment: 'Elemental Sorcerer',
                     description: 'The Water Magician does not control water: he interprets it. His magic is not born from brute force or rigid study, but from absolute visualization of his surroundings. To him, the world is not a stage, but a constant flow of tides, lunar cycles, and shifting climates. Where others see rain, he sees opportunity; where others see drought, he feels silence. His power is never stable. It fluctuates with the moon, surges with the storm, and weakens when the world turns hostile. Defeating a Water Magician is not a matter of strength, but of choosing the right place and the right moment.',
@@ -634,7 +634,62 @@
                     note: 'Water magic does not forgive arrogance. The Water Magician is invincible only when the world supports him, and vulnerable when he insists on fighting against the tide. His greatest strength is not power, but the deep understanding that the environment also plays a role. Magic is visualization, it is imagination. Can you see yourself defeating a Water Magician under torrential rain, in the middle of the ocean?'
                 }
             },
-
+            {
+                id: 'chained_hero',
+                icon: '⚔️',
+                image: 'HeroeEncadenado.jpeg',
+                faction: 'fantasy',
+                es: {
+                    title: 'EL HÉROE ENCADENADO',
+                    type: 'Rol Único - Fantasía',
+                    rarity: 'Única',
+                    persistence: 'Permanente',
+                    alignment: 'Tragedia / Gloria Marchita',
+                    description: 'Hubo un tiempo en que su nombre inspiraba canciones. Ahora, solo queda el eco. El Héroe Encadenado no murió… pero tampoco vive. Camina como un recuerdo, atado a juramentos que nadie más conserva. Su espada bebe almas, su armadura finge grandeza, y su cuerpo pertenece más a la tumba que al mundo. Quiere ser un héroe una vez más. Pero cada vez que lo intenta, algo se oxida.',
+                    passive: 'NATURALEZA NO-MUERTA: El Héroe Encadenado existe en un estado entre la vida y la muerte. Las pociones de curación lo dañan. Las pociones de daño lo curan. Los no-muertos comunes (zombis y similares) no lo atacan. No puede dormir. Puede caminar libremente sobre arena de almas. El sol lo debilita ligeramente (regeneración reducida / fatiga leve). La noche lo fortalece ligeramente (velocidad o resistencia menor). Perros, conejos y phantoms lo odian a muerte.\n\nANTIFRÁGIL: Recibe daño ligeramente reducido por caídas, venenos y efectos ambientales. El dolor ya no lo impresiona.\n\nAFINIDAD ESPIRITUAL: Interactúa de forma más efectiva con objetos ligados a almas, espíritus y rituales (artefactos del alma, invocaciones, reliquias y similares).',
+                    active: 'SOULCALIBUR - ESPADA VINCULADA: Solo él puede liberar su verdadero poder. Las muertes almacenan Almas (máx. 5). Puede invocar espíritus aliados basados en las almas almacenadas. Las almas pueden consumirse para aumentar temporalmente el daño o la resistencia. Golpear repetidamente al mismo objetivo marca su Eco, otorgando pequeños bonos situacionales contra ese jugador por un tiempo.\n\nARMADURA DEL HÉROE PENITENTE: Al equiparla otorga daño y resistencia muy aumentados, presencia imponente y bonos de combate notables. Sin embargo, acumula Óxido con el tiempo que reduce progresivamente las estadísticas. Si se lleva demasiado tiempo → debuffs severos. La armadura debe quitarse para "descansar", entrando en un período de enfriamiento. Cuanto más intenta ser un héroe… más pesado se vuelve el pasado.\n\nVOTOS VINCULANTES: Puede jurar juramentos personales o contratos con otros jugadores (proteger a alguien, cazar un objetivo, servicio temporal, completar una misión específica, sacrificar algo a cambio de otra cosa). Si el voto se cumple → bendiciones temporales o almas adicionales. Si se rompe → penalizaciones narrativas o debuffs.\n\nESCLAVO DEL LLAMADO: Puede aceptar una orden directa de otro jugador si posee un objeto especial. No puede negarse. Con su espada de más allá de este mundo, puede cortar un concepto mismo (un oficio, un objeto, un estado del ser). Solo puede existir una orden a la vez, y solo temporalmente. Mientras cumple la orden → gana mejoras notables. Cuando termina → puede exigir un favor equivalente a cambio. Nadie lo comanda gratis.',
+                    note: '"Aplausos que nadie recuerda. Promesas que aún pesan." Dicen que en las noches sin luna se puede oír metal raspando contra piedra. No es un monstruo. No es un salvador. Es un héroe cuyo nombre olvidó el tiempo. Pero él recuerda su historia claramente… y aunque solo queden cenizas, perdurará. Porque aunque su cuerpo cayó, su alma es más implacable que cualquier bendición, que cualquier maldición.'
+                },
+                en: {
+                    title: 'THE CHAINED HERO',
+                    type: 'Unique Role - Fantasy',
+                    rarity: 'Unique',
+                    persistence: 'Permanent',
+                    alignment: 'Tragedy / Tarnished Glory',
+                    description: 'There was a time when his name inspired songs. Now, only the echo remains. The Chained Hero did not die… but neither does he truly live. He walks like a memory, bound to oaths no one else still keeps. His sword drinks souls, his armor pretends at greatness, and his body belongs more to the grave than to the world. He wants to be a hero once again. But every time he tries, something rusts.',
+                    passive: 'UNDEAD NATURE: The Chained Hero exists in a state between life and death. Healing potions harm him. Damage potions heal him. Common undead (zombies and similar) do not attack him. He cannot sleep. He can walk freely across soul sand. The sun weakens him slightly (reduced regeneration / mild fatigue). The night strengthens him slightly (minor speed or resistance). Dogs, rabbits, and phantoms despise him on sight.\n\nANTIFRAGILE: He takes slightly reduced damage from falls, poisons, and environmental effects. Pain no longer impresses him.\n\nSPIRITUAL AFFINITY: He interacts more effectively with objects bound to souls, spirits, and rituals (soul artifacts, summons, relics, and similar items).',
+                    active: 'SOULCALIBUR - BOUND BLADE: Only he can draw out its true power. Kills store Souls (max. 5). He may summon allied spirits based on stored souls. Souls may be consumed to temporarily boost damage or resistance. Repeatedly striking the same target marks its Echo, granting small situational bonuses against that player for a time.\n\nARMOR OF THE PENITENT HERO: When equipped, greatly increased damage and resistance, an imposing presence, and notable combat bonuses. However, it accumulates Rust over time that progressively reduces stats. If worn too long → severe debuffs. The armor must be removed to "rest," entering a cooldown period. The more he tries to be a hero… the heavier the past becomes.\n\nBINDING VOWS: He may swear personal oaths or contracts involving other players (protecting someone, hunting a target, temporary service, completing a specific mission, sacrificing something in exchange for something else). If the vow is fulfilled → temporary blessings or additional souls. If it is broken → narrative penalties or debuffs.\n\nSLAVE TO THE CALLING: He may accept a direct command from another player if they possess a special item. He cannot refuse. With his blade from beyond this world, he may cut a concept itself (a craft, an object, a state of being). Only one such command may exist at a time, and only temporarily. While fulfilling the order → he gains notable enhancements. When it ends → he may demand an equivalent favor in return. No one commands him for free.',
+                    note: '"Applause no one remembers. Promises that still weigh." They say that on moonless nights, metal can be heard scraping across stone. He is not a monster. He is not a savior. He is a hero whose name time forgot. But he remembers his story clearly… and even if only ashes remain, he will endure. For though his body fell, his soul is more relentless than any blessing, than any curse.'
+                }
+            },
+            {
+                id: 'vestige_gaia',
+                icon: '🌋',
+                image: 'VestigioDeGaia.jpeg',
+                faction: 'fantasy',
+                es: {
+                    title: 'VESTIGIO DE GAIA',
+                    type: 'Rol Único - Fantasía Elemental',
+                    rarity: 'Única',
+                    persistence: 'Permanente',
+                    alignment: 'Caos Telúrico / Voluntad Primordial',
+                    description: 'El Vestigio de Gaia es un fragmento incompleto de una entidad elemental que, en otro tiempo, fue totalidad. Cuando el mundo se quebró, la tierra despertó… rota, dispersa, consciente a medias. No piensa como los mortales. No obedece leyes mágicas ni pactos arcanos. Su poder emerge de forma espontánea: a veces salvador, a veces devastador, siempre impredecible. Allí donde otros buscan control, el Vestigio acepta la inestabilidad como verdad absoluta.',
+                    passive: 'FRAGMENTACIÓN CONSCIENTE: El Vestigio de Gaia manifiesta un estado de inestabilidad telúrica permanente. Sus habilidades se activan mediante probabilidades variables, que pueden cambiar con el tiempo y la situación. Puede, de forma impredecible: ignorar por completo ciertos golpes físicos, infligir impactos devastadores sin previo aviso, obtener beneficios irregulares al minar piedra y minerales, resistir empujes y daño al permanecer completamente inmóvil, reaccionar sísmicamente al recibir grandes cantidades de daño. La tierra decide. El Vestigio solo existe dentro de esa decisión.\n\nDEBILIDAD PERMANENTE - FRAGMENTO INCOMPLETO: El Vestigio no está entero. Su esencia carece de cohesión total. Esto provoca que algunos efectos se anulen entre sí, los picos de poder vengan acompañados de largos silencios, y su resistencia fluctúe sin aviso previo. No se rompe fácilmente… pero nunca está verdaderamente estable.\n\nMALDICIÓN - RELACIÓN ERRÁTICA CON EL AGUA: El agua no siempre lo reconoce como tierra. En ocasiones se hunde y camina bajo el agua como si fuera roca sólida. En otras pierde toda estabilidad y es incapaz de nadar correctamente. Cruzar ríos, cuevas inundadas o caer al océano puede ser trivial… o una sentencia, dependiendo del humor del mundo en ese momento.',
+                    active: 'LIMITACIÓN - VOLUNTAD INESTABLE: El poder del Vestigio no puede forzarse. Las habilidades nunca se activan por elección directa. Intentar controlar a Gaia es inútil: a veces responde con fuerza abrumadora, a veces permanece inerte, como una roca muerta. "Quien exige a la tierra, acaba enterrado." — Grabado en una losa sin nombre.',
+                    note: '"La tierra no habla… responde." Dicen que Gaia murió. Otros afirman que simplemente se rompió. El Vestigio no confirma ni niega nada. Permanece inmóvil… y deja que el mundo decida si hoy recuerda quién fue.'
+                },
+                en: {
+                    title: 'VESTIGE OF GAIA',
+                    type: 'Unique Role - Elemental Fantasy',
+                    rarity: 'Unique',
+                    persistence: 'Permanent',
+                    alignment: 'Telluric Chaos / Primordial Will',
+                    description: 'The Vestige of Gaia is an incomplete fragment of an elemental entity that was once whole. When the world shattered, the land awakened—broken, scattered, half-aware. It does not think like mortals. It does not obey magical laws or arcane pacts. Its power emerges spontaneously: sometimes salvific, sometimes devastating, always unpredictable. Where others seek control, the Vestige accepts instability as absolute truth.',
+                    passive: 'CONSCIOUS FRAGMENTATION: The Vestige of Gaia exists in a state of permanent telluric instability. Its abilities activate through variable probabilities, which may shift over time and circumstance. It may, unpredictably: completely ignore certain physical attacks, deal devastating blows without warning, gain irregular benefits when mining stone and minerals, resist knockback and damage while remaining perfectly still, trigger seismic reactions when taking large amounts of damage. The earth decides. The Vestige merely exists within that decision.\n\nPERMANENT WEAKNESS - INCOMPLETE FRAGMENT: The Vestige is not whole. Its essence lacks total cohesion. As a result: certain effects may cancel one another, power surges are followed by long periods of silence, its resilience fluctuates without warning. It does not break easily… but it is never truly stable.\n\nCURSE - ERRATIC BOND WITH WATER: Water does not always recognize it as land. At times it sinks and walks beneath the surface as if on solid ground. At others it loses all stability and cannot swim at all. Crossing rivers, flooded caves, or falling into the ocean may be trivial… or a death sentence, depending on the world\'s mood that day.',
+                    active: 'LIMITATION - UNYIELDING WILL: The Vestige\'s power cannot be forced. Abilities never activate by direct choice. Attempting to command Gaia is futile: sometimes she answers with overwhelming force, sometimes she remains inert, like dead stone. "He who demands from the earth ends up buried by it." — Inscription on an unnamed slab.',
+                    note: '"The earth does not speak… it answers." Some say Gaia died. Others claim she merely shattered. The Vestige neither confirms nor denies. It remains still… and lets the world decide whether today it remembers what she once was.'
+                }
+            },
             // {
             //     id: 'theglitch',
             //     icon: '🏁',
